@@ -31,11 +31,11 @@ class Cell
     end
   end
 
-  def render(arg = false)
-    if fired_upon? == false
-      '.'
-    elsif arg == true && empty? == false && fired_upon? == false
+  def render(view = nil)
+    if view == true && empty? == false && fired_upon? == false
       'S'
+    elsif fired_upon? == false
+      '.'
     elsif fired_upon? == true && empty? == true
       'M'
     elsif @ship.sunk? == true && fired_upon? == true
