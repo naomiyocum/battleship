@@ -32,14 +32,23 @@ class Board
     end
   end
 
+  def is_consecutively_vertical?(coordinates)
+    vertical_coors = ["A1", "B1", "C1", "D1", "A2", "B2", "C2", "D2", "A3", "B3", "C3", "D3", "A4", "B4", "C4", "D4"]
+    vertical_coors.each_cons(coordinates.length).any? do |order|
+      coordinates == order
+    end
+  end
+
 
   def valid_placement?(ship, coordinates)
     if ship.length == coordinates.length
-      is_consecutive?(coordinates)
+      is_consecutive?(coordinates) || is_consecutively_vertical?(coordinates)
     else
       false
     end
   end
+
+
 
 
 end
