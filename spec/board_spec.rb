@@ -66,7 +66,32 @@ RSpec.describe Board do
    end
  end
 
-  describe '#render' do
+  describe '#place' do
+     it 'places ship' do
+       board = Board.new
+       cruiser = Ship.new("Cruiser", 3)
+       board.place(cruiser, ["A1", "A2", "A3"])
+       cell_1 = board.cells["A1"]
+       cell_2 = board.cells["A2"]
+       cell_3 = board.cells["A3"]
+       expect(cell_1.ship).to eq(cruiser)
+       expect(cell_2.ship).to eq(cruiser)
+       expect(cell_3.ship).to eq(cruiser)
+       expect(cell_3.ship == cell_2.ship).to eq(true)
+     end
+  end
+  
+  describe '#free?' do
+      it 'checks for overlap' do
+      board = Board.new
+      cruiser = Ship.new("Cruiser", 3)
+      board.place(cruiser, ["A1", "A2", "A3"])
+      submarine = Ship.new("Submarine", 2)
+      expect(board.valid_placement?(submarine, ["A1", "B1"])).to eq(false)
+      end
+    end
+    
+   describe '#render' do
     it 'renders the board' do
       board = Board.new
       cruiser = Ship.new("Cruiser", 3)

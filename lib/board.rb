@@ -39,14 +39,25 @@ class Board
     end
   end
 
-
+  def free?(coordinates)
+    coordinates.each.all? do |coordinate|
+      @cells[coordinate].ship == nil
+    end
+  end
+  
   def valid_placement?(ship, coordinates)
-    if ship.length == coordinates.length
+    if ship.length == coordinates.length && free?(coordinates)
       is_consecutive?(coordinates) || is_consecutively_vertical?(coordinates)
     else
       false
     end
   end
+  
+  def place(ship, coordinates)
+    coordinates.each do |coordinate|
+      @cells[coordinate].place_ship(ship)
+    end
+   end
 
   def render(view = nil)
     if view == true
@@ -63,6 +74,7 @@ class Board
       "D #{@cells["D1"].render} #{@cells["D2"].render} #{@cells["D3"].render} #{@cells["D4"].render} \n"
     end
   end
+
 
 
 end
