@@ -1,5 +1,9 @@
 class Game
+  attr_reader :computer, :player, :board
   def initialize
+    @computer = computer
+    @player = player
+    @board = Board.new
   end
 
   def welcome
@@ -12,6 +16,7 @@ class Game
     else
       puts "BYE FELICIA!"
     end
-
   end
+
+
 end
