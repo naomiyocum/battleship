@@ -12,5 +12,13 @@ RSpec.describe Game do
     end
   end
 
+  describe '#setup' do
+    it 'sets up the ships for computer and player' do
+     game = Game.new
+     game.computer_setup
+     
 
+
+    end
+  end
 end
