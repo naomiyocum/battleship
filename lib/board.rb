@@ -1,5 +1,5 @@
 class Board
-  attr_reader :cells
+  attr_reader :cells, :horizontal_coors, :vertical_coors, :cruiser_coors, :submarine_coors
 
   def initialize
      @cells = {
@@ -20,6 +20,10 @@ class Board
        "D3" => Cell.new("D3"),
        "D4" => Cell.new("D4")
      }
+     @horizontal_coors = [["A1", "A2", "A3", "A4"], ["B1", "B2", "B3", "B4"], ["C1", "C2", "C3", "C4"], [["D1", "D2", "D3", "D4"]]]
+     @vertical_coors = [["A1", "B1", "C1", "D1"], ["A2", "B2", "C2", "D2"], ["A3", "B3", "C3", "D3"], ["A4", "B4", "C4", "D4"]]
+     @cruiser_coors = []
+     @submarine_coors = []
   end
 
   def valid_coordinate?(coordinate)
@@ -27,15 +31,46 @@ class Board
   end
 
   def is_consecutive?(coordinates)
-    @cells.keys.each_cons(coordinates.length).any? do |order|
-      coordinates == order
+    if @horizontal_coors[0].each_cons(coordinates.length).any? do |order|
+        coordinates == order
+      end
+      true
+    elsif @horizontal_coors[1].each_cons(coordinates.length).any? do |order|
+        coordinates == order
+      end
+      true
+    elsif @horizontal_coors[2].each_cons(coordinates.length).any? do |order|
+        coordinates == order
+      end
+      true
+    elsif @horizontal_coors[3].each_cons(coordinates.length).any? do |order|
+        coordinates == order
+      end
+      true
+    else
+      false
     end
   end
 
   def is_consecutively_vertical?(coordinates)
-    vertical_coors = ["A1", "B1", "C1", "D1", "A2", "B2", "C2", "D2", "A3", "B3", "C3", "D3", "A4", "B4", "C4", "D4"]
-    vertical_coors.each_cons(coordinates.length).any? do |order|
-      coordinates == order
+    if @vertical_coors[0].each_cons(coordinates.length).any? do |order|
+        coordinates == order
+      end
+      true
+    elsif @vertical_coors[1].each_cons(coordinates.length).any? do |order|
+        coordinates == order
+      end
+      true
+    elsif @vertical_coors[2].each_cons(coordinates.length).any? do |order|
+        coordinates == order
+      end
+      true
+    elsif @vertical_coors[3].each_cons(coordinates.length).any? do |order|
+        coordinates == order
+      end
+      true
+    else
+      false
     end
   end
 
@@ -44,7 +79,7 @@ class Board
       @cells[coordinate].ship == nil
     end
   end
-  
+
   def valid_placement?(ship, coordinates)
     if ship.length == coordinates.length && free?(coordinates)
       is_consecutive?(coordinates) || is_consecutively_vertical?(coordinates)
@@ -52,7 +87,7 @@ class Board
       false
     end
   end
-  
+
   def place(ship, coordinates)
     coordinates.each do |coordinate|
       @cells[coordinate].place_ship(ship)
@@ -72,6 +107,60 @@ class Board
       "B #{@cells["B1"].render} #{@cells["B2"].render} #{@cells["B3"].render} #{@cells["B4"].render} \n" +
       "C #{@cells["C1"].render} #{@cells["C2"].render} #{@cells["C3"].render} #{@cells["C4"].render} \n" +
       "D #{@cells["D1"].render} #{@cells["D2"].render} #{@cells["D3"].render} #{@cells["D4"].render} \n"
+    end
+  end
+
+  def valid_coors_cruiser
+    @vertical_coors[0].each_cons(3) do |group|
+      cruiser_coors << group
+    end
+    @vertical_coors[1].each_cons(3) do |group|
+      cruiser_coors << group
+    end
+    @vertical_coors[2].each_cons(3) do |group|
+      cruiser_coors << group
+    end
+    @vertical_coors[3].each_cons(3) do |group|
+      cruiser_coors << group
+    end
+    @horizontal_coors[0].each_cons(3) do |group|
+      cruiser_coors << group
+    end
+    @horizontal_coors[1].each_cons(3) do |group|
+      cruiser_coors << group
+    end
+    @horizontal_coors[2].each_cons(3) do |group|
+      cruiser_coors << group
+    end
+    @horizontal_coors[3].each_cons(3) do |group|
+      cruiser_coors << group
+    end
+  end
+
+  def valid_coors_submarine
+    @vertical_coors[0].each_cons(2) do |group|
+      submarine_coors << group
+    end
+    @vertical_coors[1].each_cons(2) do |group|
+      submarine_coors << group
+    end
+    @vertical_coors[2].each_cons(2) do |group|
+      submarine_coors << group
+    end
+    @vertical_coors[3].each_cons(2) do |group|
+      submarine_coors << group
+    end
+    @horizontal_coors[0].each_cons(2) do |group|
+      submarine_coors << group
+    end
+    @horizontal_coors[1].each_cons(2) do |group|
+      submarine_coors << group
+    end
+    @horizontal_coors[2].each_cons(2) do |group|
+      submarine_coors << group
+    end
+    @horizontal_coors[3].each_cons(2) do |group|
+      submarine_coors << group
     end
   end
 

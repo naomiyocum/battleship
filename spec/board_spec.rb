@@ -80,7 +80,7 @@ RSpec.describe Board do
        expect(cell_3.ship == cell_2.ship).to eq(true)
      end
   end
-  
+
   describe '#free?' do
       it 'checks for overlap' do
       board = Board.new
@@ -90,7 +90,7 @@ RSpec.describe Board do
       expect(board.valid_placement?(submarine, ["A1", "B1"])).to eq(false)
       end
     end
-    
+
    describe '#render' do
     it 'renders the board' do
       board = Board.new
