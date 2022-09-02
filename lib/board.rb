@@ -1,5 +1,5 @@
 class Board
-  attr_reader :cells, :cruiser_coors, :submarine_coors, :horizontal_coors, :vertical_coors
+  attr_reader :cells, :horizontal_coors, :vertical_coors, :cruiser_coors, :submarine_coors
 
   def initialize
      @cells = {
@@ -123,10 +123,45 @@ class Board
     @vertical_coors[3].each_cons(3) do |group|
       cruiser_coors << group
     end
+    @horizontal_coors[0].each_cons(3) do |group|
+      cruiser_coors << group
+    end
+    @horizontal_coors[1].each_cons(3) do |group|
+      cruiser_coors << group
+    end
+    @horizontal_coors[2].each_cons(3) do |group|
+      cruiser_coors << group
+    end
+    @horizontal_coors[3].each_cons(3) do |group|
+      cruiser_coors << group
+    end
   end
 
   def valid_coors_submarine
-    @cells.keys.each_cons(2)
+    @vertical_coors[0].each_cons(2) do |group|
+      submarine_coors << group
+    end
+    @vertical_coors[1].each_cons(2) do |group|
+      submarine_coors << group
+    end
+    @vertical_coors[2].each_cons(2) do |group|
+      submarine_coors << group
+    end
+    @vertical_coors[3].each_cons(2) do |group|
+      submarine_coors << group
+    end
+    @horizontal_coors[0].each_cons(2) do |group|
+      submarine_coors << group
+    end
+    @horizontal_coors[1].each_cons(2) do |group|
+      submarine_coors << group
+    end
+    @horizontal_coors[2].each_cons(2) do |group|
+      submarine_coors << group
+    end
+    @horizontal_coors[3].each_cons(2) do |group|
+      submarine_coors << group
+    end
   end
 
 
