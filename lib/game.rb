@@ -1,5 +1,5 @@
 class Game
-  attr_reader :computer_board, :player_board, :computer_cruiser, :computer_submarine, :player_cruiser, :player_submarine, :poss_sample, :given_coor
+  attr_reader :computer_board, :player_board, :computer_cruiser, :computer_submarine, :player_cruiser, :player_submarine, :first_sample, :poss_sample, :poss_cpu_shot, :given_coor
   def initialize
     @computer_board = Board.new
     @player_board = Board.new
@@ -7,7 +7,9 @@ class Game
     @computer_submarine = Ship.new("Submarine", 2)
     @player_cruiser = Ship.new("Cruiser", 3)
     @player_submarine = Ship.new("Submarine", 2)
-    @poss_sample = @player_board.cells.keys.sample
+    @first_sample = @computer_board.cruiser_coors.sample
+    @poss_sample = @computer_board.submarine_coors.sample
+    @poss_cpu_shot = @player_board.cells.keys.sample
     @given_coor = 0
   end
 
@@ -18,7 +20,7 @@ class Game
     @computer_submarine = Ship.new("Submarine", 2)
     @player_cruiser = Ship.new("Cruiser", 3)
     @player_submarine = Ship.new("Submarine", 2)
-    
+
     greeting = "Welcome to BATTLESHIP\nEnter p to play. Enter q to quit."
     puts greeting
     input = gets.chomp
@@ -34,14 +36,15 @@ class Game
 
   def computer_setup
     @computer_board.valid_coors_cruiser
-    @computer_board.place(@computer_cruiser, @computer_board.cruiser_coors.sample)
-    @computer_board.valid_coors_submarine
+    @first_sample = @computer_board.cruiser_coors.sample
+    @computer_board.place(@computer_cruiser, @first_sample)
 
-    poss_sample = @computer_board.submarine_coors.sample
-    while @computer_board.valid_placement?(@computer_submarine, poss_sample) == false
-      poss_sample = @computer_board.submarine_coors.sample
+    @computer_board.valid_coors_submarine
+    @poss_sample = @computer_board.submarine_coors.sample
+    while @computer_board.valid_placement?(@computer_submarine, @poss_sample) == false
+      @poss_sample = @computer_board.submarine_coors.sample
     end
-    @computer_board.place(@computer_submarine, poss_sample)
+    @computer_board.place(@computer_submarine, @poss_sample)
   end
 
   def player_setup
@@ -100,10 +103,10 @@ class Game
   end
 
   def computer_shot
-    while @player_board.cells[@poss_sample].fired_upon? == true
-      @poss_sample = @player_board.cells.keys.sample
+    while @player_board.cells[@poss_cpu_shot].fired_upon? == true
+      @poss_cpu_shot = @player_board.cells.keys.sample
     end
-    @player_board.cells[@poss_sample].fire_upon
+    @player_board.cells[@poss_cpu_shot].fire_upon
   end
 
   def player_results
