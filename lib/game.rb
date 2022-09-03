@@ -26,11 +26,12 @@ class Game
     @computer_board.valid_coors_cruiser
     @computer_board.place(@computer_cruiser, @computer_board.cruiser_coors.sample)
     @computer_board.valid_coors_submarine
-    if @computer_board.valid_placement?(@computer_submarine, @computer_board.submarine_coors.sample) == true
-    @computer_board.place(@computer_submarine, @computer_board.submarine_coors.sample)
-    else
-
+    
+    poss_sample = @computer_board.submarine_coors.sample
+    while @computer_board.valid_placement?(@computer_submarine, poss_sample) == false
+      poss_sample = @computer_board.submarine_coors.sample
     end
+    @computer_board.place(@computer_submarine, poss_sample)
   end
 
   def player_setup
