@@ -12,6 +12,8 @@ class Game
   end
 
   def welcome
+    @computer_board = Board.new
+    @player_board = Board.new
     greeting = "Welcome to BATTLESHIP\nEnter p to play. Enter q to quit."
     puts greeting
     input = gets.chomp
@@ -84,8 +86,13 @@ class Game
       puts ">" + "#{@given_coor = gets.chomp.upcase}"
     end
     @computer_board.cells[@given_coor].fire_upon
+    # if @computer_board.cells[@given_coor].fired_upon? == true
+    #   puts "You have already fired upon that space, choose again:"
+    #   puts ">" + "#{@given_coor = gets.chomp.upcase}"
+    # else
+    #   @computer_board.cells[@given_coor].fire_upon
+    # end
   end
-
   def computer_shot
     while @player_board.cells[@poss_sample].fired_upon? == true
       @poss_sample = @player_board.cells.keys.sample
@@ -107,7 +114,7 @@ class Game
     if @player_board.cells[@poss_sample].ship == nil
       puts "My shot on #{@poss_sample} was a miss."
     elsif @player_board.cells[@poss_sample].ship.sunk? == true
-      puts "My shot on #{@poss_sample} sunk my battleship!"
+      puts "My shot on #{@poss_sample} sunk your battleship!"
     else
       puts "My shot on #{@poss_sample} was a hit."
     end
@@ -118,13 +125,29 @@ class Game
     comp_results
 
   end
+
+  def comp_has_lost?
+    @computer_cruiser.sunk? == true && @computer_submarine.sunk? == true
+  end
+
+  def player_has_lost?
+    @player_cruiser.sunk? == true && @player_submarine.sunk? == true
+  end
+
   def playing
+    while comp_has_lost? == false && player_has_lost? == false
+     display_boards
+     player_shot
+     computer_shot
+     results
+    end
+    if comp_has_lost? == true
+      puts "YOU WON!"
+    elsif player_has_lost? == true
+      puts "I WON!"
+    end
     display_boards
-    player_shot
-    display_boards
-    computer_shot
-    display_boards
-    results
+    welcome
   end
 
 end
