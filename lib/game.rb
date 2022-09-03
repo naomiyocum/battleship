@@ -1,5 +1,5 @@
 class Game
-  attr_reader :computer_board, :player_board, :computer_cruiser, :computer_submarine, :player_cruiser, :player_submarine
+  attr_reader :computer_board, :player_board, :computer_cruiser, :computer_submarine, :player_cruiser, :player_submarine, :poss_sample, :given_coor
   def initialize
     @computer_board = Board.new
     @player_board = Board.new
@@ -7,6 +7,8 @@ class Game
     @computer_submarine = Ship.new("Submarine", 2)
     @player_cruiser = Ship.new("Cruiser", 3)
     @player_submarine = Ship.new("Submarine", 2)
+    @poss_sample = @player_board.cells.keys.sample
+    @given_coor = 0
   end
 
   def welcome
@@ -76,30 +78,53 @@ class Game
 
   def player_shot
     puts "Enter the coordinate for your shot:"
-    given_coor = 0
-    puts ">" + "#{given_coor = gets.chomp.upcase}"
-    while @computer_board.valid_coordinate?(given_coor) == false
+    puts ">" + "#{@given_coor = gets.chomp.upcase}"
+    while @computer_board.valid_coordinate?(@given_coor) == false
       puts "Please enter a valid coordinate:"
-      puts ">" + "#{given_coor = gets.chomp.upcase}"
+      puts ">" + "#{@given_coor = gets.chomp.upcase}"
     end
-    @computer_board.cells[given_coor].fire_upon
+    @computer_board.cells[@given_coor].fire_upon
   end
 
   def computer_shot
-    poss_sample = @player_board.cells.keys.sample
-    while @player_board.cells[poss_sample].fired_upon? == true
-      poss_sample = @player_board.cells.keys.sample
+    while @player_board.cells[@poss_sample].fired_upon? == true
+      @poss_sample = @player_board.cells.keys.sample
     end
-    @player_board.cells[poss_sample].fire_upon
+    @player_board.cells[@poss_sample].fire_upon
   end
 
+  def player_results
+    if @computer_board.cells[@given_coor].ship == nil
+      puts "Your shot on #{@given_coor} was a miss."
+    elsif @computer_board.cells[@given_coor].ship.sunk? == true
+      puts "Your shot on #{@given_coor} sunk my battleship!"
+    else
+      puts "Your shot on #{@given_coor} was a hit."
+    end
+  end
+
+  def comp_results
+    if @player_board.cells[@poss_sample].ship == nil
+      puts "My shot on #{@poss_sample} was a miss."
+    elsif @player_board.cells[@poss_sample].ship.sunk? == true
+      puts "My shot on #{@poss_sample} sunk my battleship!"
+    else
+      puts "My shot on #{@poss_sample} was a hit."
+    end
+  end
+
+  def results
+    player_results
+    comp_results
+
+  end
   def playing
     display_boards
     player_shot
     display_boards
     computer_shot
     display_boards
-
+    results
   end
 
 end
