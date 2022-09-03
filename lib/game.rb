@@ -67,4 +67,39 @@ class Game
     puts @player_board.render(true)
   end
 
+  def display_boards
+    puts "=============COMPUTER BOARD============="
+    puts "#{@computer_board.render(true)}" #GET RID OF THIS TRUE!!!!!!!
+    puts "==============PLAYER BOARD=============="
+    puts "#{@player_board.render(true)}"
+  end
+
+  def player_shot
+    puts "Enter the coordinate for your shot:"
+    given_coor = 0
+    puts ">" + "#{given_coor = gets.chomp.upcase}"
+    while @computer_board.valid_coordinate?(given_coor) == false
+      puts "Please enter a valid coordinate:"
+      puts ">" + "#{given_coor = gets.chomp.upcase}"
+    end
+    @computer_board.cells[given_coor].fire_upon
+  end
+
+  def computer_shot
+    poss_sample = @player_board.cells.keys.sample
+    while @player_board.cells[poss_sample].fired_upon? == true
+      poss_sample = @player_board.cells.keys.sample
+    end
+    @player_board.cells[poss_sample].fire_upon
+  end
+
+  def playing
+    display_boards
+    player_shot
+    display_boards
+    computer_shot
+    display_boards
+
+  end
+
 end
