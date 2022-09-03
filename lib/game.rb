@@ -40,7 +40,31 @@ class Game
     puts "The Cruiser is three units long and the Submarine is two units long."
     puts "#{@player_board.render}"
     puts "Enter the squares for the Cruiser (3 spaces):"
-    puts ">"+"#{@player_cruiser = gets.chomp}"
+    p_valid_cruiser = []
+    puts ">"+"#{p_valid_cruiser << gets.chomp}"
+    p_valid_cruiser = p_valid_cruiser[0].upcase.split
+    while @player_board.valid_placement?(@player_cruiser, p_valid_cruiser) == false
+      puts "Those are invalid coordinates. Please try again:"
+      p_valid_cruiser = []
+      puts ">"+"#{p_valid_cruiser << gets.chomp}"
+      p_valid_cruiser = p_valid_cruiser[0].upcase.split
+    end
+    @player_board.place(@player_cruiser, p_valid_cruiser)
+
+    puts @player_board.render(true)
+
+    puts "Enter the squares for the Submarine (2 spaces):"
+    p_valid_submarine = []
+    puts ">"+"#{p_valid_submarine << gets.chomp}"
+    p_valid_submarine = p_valid_submarine[0].upcase.split
+    while @player_board.valid_placement?(@player_submarine, p_valid_submarine) == false
+      puts "Those are invalid coordinates. Please try again:"
+      p_valid_submarine = []
+      puts ">"+"#{p_valid_submarine << gets.chomp}"
+      p_valid_submarine = p_valid_submarine[0].upcase.split
+    end
+    @player_board.place(@player_submarine, p_valid_submarine)
+    puts @player_board.render(true)
   end
 
 end
