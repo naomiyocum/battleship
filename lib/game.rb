@@ -34,7 +34,9 @@ class Game
   end
 
   def player_setup
-    puts "I have laid out my ships on the grid.\nYou now need to lay out your two ships.\nThe Cruiser is three units long and the Submarine is two units long."
+    puts "I have laid out my ships on the grid."
+    puts "You now need to lay out your two ships."
+    puts "The Cruiser is three units long and the Submarine is two units long."
     puts "#{@player_board.render}"
     puts "Enter the squares for the Cruiser (3 spaces):"
     puts ">"+"#{@player_cruiser = gets.chomp}"
