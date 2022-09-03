@@ -14,6 +14,11 @@ class Game
   def welcome
     @computer_board = Board.new
     @player_board = Board.new
+    @computer_cruiser = Ship.new("Cruiser", 3)
+    @computer_submarine = Ship.new("Submarine", 2)
+    @player_cruiser = Ship.new("Cruiser", 3)
+    @player_submarine = Ship.new("Submarine", 2)
+    
     greeting = "Welcome to BATTLESHIP\nEnter p to play. Enter q to quit."
     puts greeting
     input = gets.chomp
@@ -21,6 +26,7 @@ class Game
     if input == 'p'
       computer_setup
       player_setup
+      playing
     else
       puts "BYE FELICIA!"
     end
@@ -85,14 +91,14 @@ class Game
       puts "Please enter a valid coordinate:"
       puts ">" + "#{@given_coor = gets.chomp.upcase}"
     end
+
+    while @computer_board.cells[@given_coor].fired_upon? == true
+      puts "You have already fired upon that space, choose again:"
+      puts ">" + "#{@given_coor = gets.chomp.upcase}"
+    end
     @computer_board.cells[@given_coor].fire_upon
-    # if @computer_board.cells[@given_coor].fired_upon? == true
-    #   puts "You have already fired upon that space, choose again:"
-    #   puts ">" + "#{@given_coor = gets.chomp.upcase}"
-    # else
-    #   @computer_board.cells[@given_coor].fire_upon
-    # end
   end
+
   def computer_shot
     while @player_board.cells[@poss_sample].fired_upon? == true
       @poss_sample = @player_board.cells.keys.sample

@@ -6,4 +6,3 @@ require './lib/game'
 game = Game.new
 
 game.welcome
-game.playing
