@@ -38,11 +38,10 @@ class Game
     @computer_board.valid_coors_cruiser
     @first_sample = @computer_board.cruiser_coors.sample
     @computer_board.place(@computer_cruiser, @first_sample)
-
     @computer_board.valid_coors_submarine
     @poss_sample = @computer_board.submarine_coors.sample
     while @computer_board.valid_placement?(@computer_submarine, @poss_sample) == false
-      @poss_sample = @computer_board.submarine_coors.sample
+    @poss_sample = @computer_board.submarine_coors.sample
     end
     @computer_board.place(@computer_submarine, @poss_sample)
   end
@@ -82,7 +81,7 @@ class Game
 
   def display_boards
     puts "=============COMPUTER BOARD============="
-    puts "#{@computer_board.render(true)}" #GET RID OF THIS TRUE!!!!!!!
+    puts "#{@computer_board.render}"
     puts "==============PLAYER BOARD=============="
     puts "#{@player_board.render(true)}"
   end

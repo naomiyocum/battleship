@@ -6,6 +6,7 @@ require 'rspec'
 
 RSpec.describe Game do
   describe '#initialize' do
+
     it 'exists' do
       game = Game.new
       expect(game).to be_an_instance_of(Game)
@@ -15,9 +16,8 @@ RSpec.describe Game do
   describe '#computer_setup' do
     it 'sets up the ships for computer and player' do
      game = Game.new
-     # require 'pry';binding.pry
-     # expect(game.computer_board.valid_placement?(game.computer_cruiser, game.first_sample)).to eq(true)
-     # expect(game.computer_board.valid_placement?(game.computer_submarine, game.poss_sample)).to eq(true)
+     game.computer_setup
+     expect(game.computer_board.render != game.computer_board.render(true)).to eq(true)
     end
   end
 
