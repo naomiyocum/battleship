@@ -119,12 +119,12 @@ class Game
   end
 
   def comp_results
-    if @player_board.cells[@poss_sample].ship == nil
-      puts "My shot on #{@poss_sample} was a miss."
-    elsif @player_board.cells[@poss_sample].ship.sunk? == true
-      puts "My shot on #{@poss_sample} sunk your battleship!"
+    if @player_board.cells[@poss_cpu_shot].ship == nil
+      puts "My shot on #{@poss_cpu_shot} was a miss."
+    elsif @player_board.cells[@poss_cpu_shot].ship.sunk? == true
+      puts "My shot on #{@poss_cpu_shot} sunk your battleship!"
     else
-      puts "My shot on #{@poss_sample} was a hit."
+      puts "My shot on #{@poss_cpu_shot} was a hit."
     end
   end
 
