@@ -31,4 +31,9 @@ The game ends when one player’s ships are all hit and “sunk”.
 * Git
 * Atom
 
-## Usage
+## Usage :ship:
+In your terminal, run `git clone` with the copied URL.<br><br>
+Navigate into the `battleship` directory and run `ruby battleship_runner.rb`.<br><br>
+Welcome to our game! You will be prompted to place your ships, similar to the image below.<br><br>
+<img width="558" alt="Screen Shot 2022-11-16 at 12 11 44 PM" src="https://user-images.githubusercontent.com/102825498/202271656-452d71b6-b883-4c0b-8d71-60f4c2cf4b08.png"><br><br>
+After ship placement, you and the computer will take turns attempting to hit each other's battleships. May the odds be in your favor.
