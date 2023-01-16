@@ -1,4 +1,5 @@
-# Battleship
+<h1 align="center"> Battleship 🚢 </h1>
+
 ![GitHub Contributors](https://img.shields.io/github/contributors/naomiyocum/battleship)
 ![GitHub language count](https://img.shields.io/github/languages/count/naomiyocum/battleship)
 ![GitHub top language](https://img.shields.io/github/languages/top/naomiyocum/battleship?color=yellow)
